@@ -1,7 +1,5 @@
 ﻿using Domain;
 using Raven.Client.Documents.Indexes;
-using System.Security.Cryptography.X509Certificates;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace API.Common
 {
@@ -26,6 +24,7 @@ namespace API.Common
                 Map = books => from book in books
                                select new
                                {
+                                   book.Title,
                                    book.Author
                                };
                 Indexes.Add(x => x.Author, FieldIndexing.Search);
@@ -40,7 +39,9 @@ namespace API.Common
                                  select new
                                  {
                                      client.Name,
-                                     client.Email
+                                     client.LastName,
+                                     client.Email,
+                                     client.Rental
                                  };
             }
         }
@@ -67,6 +68,7 @@ namespace API.Common
                                select new
                                {
                                    employee.Name,
+                                   employee.LastName,
                                    employee.Email
                                };
         }
@@ -92,34 +94,62 @@ namespace API.Common
             Map = employees => from employee in employees
                                select new
                                {
+                                   employee.Name,
+                                   employee.LastName,
                                    employee.AccessLevel
                                };
         }
     }
 
-    public class Books_TotalBookCount : AbstractIndexCreationTask<Book, Books_TotalBookCount.Result>
+    public class Books_CategoryBookCount : AbstractIndexCreationTask<Book, Books_CategoryBookCount.Result>
     {
         public class Result
         {
-            public string Title { get; set; }
+            public string Category { get; set; }
             public uint TotalCount { get; set; }
         }
 
-        public Books_TotalBookCount()
+        public Books_CategoryBookCount()
         {
             Map = books => from book in books
                            select new
                            {
-                               Title = book.Title,
-                               TotalCount = book.BookQuantity
+                               Category = book.Category,
+                               TotalCount = 1
                            };
             Reduce = results => from result in results
-                                group result by result.Title into g
+                                group result by result.Category into g
                                 select new
                                 {
-                                    Title = g.Key,
+                                    Category = g.Key,
                                     TotalCount = g.Sum(x => x.TotalCount)
                                 };
+        }
+
+        public class Employees_AccessLevelCount : AbstractIndexCreationTask<Employee, Employees_AccessLevelCount.Result>
+        {
+            public class Result
+            {
+                public string AccessLevel { get; set; }
+                public uint TotalCount { get; set; }
+            }
+
+            public Employees_AccessLevelCount()
+            {
+                Map = employees => from employee in employees
+                                   select new
+                                   {
+                                       AccessLevel = employee.AccessLevel,
+                                       TotalCount = 0
+                                   };
+                Reduce = results => from result in results
+                                    group result by result.AccessLevel into g
+                                    select new
+                                    {
+                                        AccessLevel = g.Key,
+                                        TotalCount = g.Sum(x => x.TotalCount)
+                                    };
+            }
         }
     }
 }

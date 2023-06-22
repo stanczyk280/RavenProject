@@ -19,6 +19,43 @@ namespace API.Repository
             return clients;
         }
 
+        public List<Client> GetClientsWithPaging(int pagenumber, int pagesize)
+        {
+            if (pagenumber > 0 || pagesize > 0)
+            {
+                var clients = Session
+                .Query<Client>()
+                .OrderBy(c => c.Name)
+                .Skip((pagenumber - 1) * pagesize)
+                .Take(pagesize);
+                return clients.ToList();
+            }
+            else
+            {
+                Console.WriteLine("Invalid page number or page size. Returning empty query");
+                return null;
+            }
+        }
+
+        public List<Client> GetClientsByNameAndLastNameWithPaging(int pagenumber, int pagesize)
+        {
+            if (pagenumber > 0 || pagesize > 0)
+            {
+                var clients = Session
+                .Query<Client>()
+                .OrderBy(c => c.Name)
+                .ThenBy(c => c.LastName)
+                .Skip((pagenumber - 1) * pagesize)
+                .Take(pagesize);
+                return clients.ToList();
+            }
+            else
+            {
+                Console.WriteLine("Invalid page number or page size. Returning empty query");
+                return null;
+            }
+        }
+
         public Client GetClient(string id)
         {
             var client = Session.Load<Client>(id);

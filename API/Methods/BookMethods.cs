@@ -49,6 +49,47 @@ namespace API.Methods
             }
         }
 
+        public void DisplayBooksTitleList()
+        {
+            Console.WriteLine("Please enter desired page number: ");
+            int pagenumber = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Please enter desired page size: ");
+            int pagesize = Convert.ToInt32(Console.ReadLine());
+
+            var books = GetBooksWithPaging(pagenumber, pagesize);
+            foreach (var book in books)
+            {
+                int i = 1;
+                Console.WriteLine(i + ". Book Title: " + book.Title);
+                i++;
+            }
+        }
+
+        public void DisplayBooksAuthorList()
+        {
+            Console.WriteLine("Please enter desired page number: ");
+            int pagenumber = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Please enter desired page size: ");
+            int pagesize = Convert.ToInt32(Console.ReadLine());
+
+            var books = GetBooksWithPaging(pagenumber, pagesize);
+            foreach (var book in books)
+            {
+                int i = 1;
+                Console.WriteLine(i + ". Book Title: " + book.Title + ", Author: " + book.Author);
+                i++;
+            }
+        }
+
+        public void DisplayCategoryCount()
+        {
+            var results = GetCategoryBooksCount();
+            foreach (var result in results)
+            {
+                Console.WriteLine("Category: " + result.Category + " Quantity: " + result.TotalCount);
+            }
+        }
+
         public void CreateBook()
         {
             Console.WriteLine("Add new book to the system\n");
