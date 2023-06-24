@@ -7,7 +7,6 @@ namespace Persistence
 {
     public static class Seed
     {
-        //Deprecated use the extension method
         public static void SeedData()
         {
             var cultureInfo = new CultureInfo("pl-PL");
@@ -96,6 +95,143 @@ namespace Persistence
                     }
                 },
             };
+            var clients = new List<Client>
+            {
+                new Client()
+                {
+                    Name = "John",
+                    LastName = "Doe",
+                    BirthDate = new DateOnly(1990, 5, 15),
+                    Country = "United States",
+                    City = "New York",
+                    Street = "123 Main Street",
+                    PostalCode = "10001",
+                    Email = "john.doe@example.com",
+                    PhoneNumber = "555-1234",
+                    Rental = new List<Rental>()
+                },
+                new Client()
+                {
+                    Name = "Alice",
+                    LastName = "Johnson",
+                    BirthDate = new DateOnly(1992, 8, 20),
+                    Country = "United States",
+                    City = "Chicago",
+                    Street = "789 Oak Street",
+                    PostalCode = "60601",
+                    Email = "alice.johnson@example.com",
+                    PhoneNumber = "555-9012",
+                    Rental = new List<Rental>()
+                },
+                new Client()
+                {
+                    Name = "David",
+                    LastName = "Brown",
+                    BirthDate = new DateOnly(1987, 3, 12),
+                    Country = "United Kingdom",
+                    City = "London",
+                    Street = "456 High Street",
+                    PostalCode = "SW1A 1AA",
+                    Email = "david.brown@example.com",
+                    PhoneNumber = "555-3456",
+                    Rental = new List<Rental>()
+                },
+                new Client()
+                {
+                    Name = "Sophia",
+                    LastName = "Wilson",
+                    BirthDate = new DateOnly(1995, 11, 5),
+                    Country = "Canada",
+                    City = "Toronto",
+                    Street = "321 Maple Avenue",
+                    PostalCode = "M5H 2N2",
+                    Email = "sophia.wilson@example.com",
+                    PhoneNumber = "555-6789",
+                    Rental = new List<Rental>()
+                },
+                new Client()
+                {
+                    Name = "Michael",
+                    LastName = "Lee",
+                    BirthDate = new DateOnly(1990, 6, 30),
+                    Country = "Australia",
+                    City = "Sydney",
+                    Street = "987 George Street",
+                    PostalCode = "2000",
+                    Email = "michael.lee@example.com",
+                    PhoneNumber = "555-2345",
+                    Rental = new List<Rental>()
+                }
+             };
+
+            var employees = new List<Employee>
+            {
+                new Employee()
+                {
+                    Name = "Jane",
+                    LastName = "Smith",
+                    BirthDate = new DateOnly(1985, 9, 10),
+                    Country = "United States",
+                    City = "Los Angeles",
+                    Street = "456 Elm Street",
+                    PostalCode = "90001",
+                    Email = "jane.smith@example.com",
+                    PhoneNumber = "555-5678",
+                    AccessLevel = "Manager"
+                },
+                new Employee()
+                {
+                    Name = "John",
+                    LastName = "Smith",
+                    BirthDate = new DateOnly(1985, 12, 10),
+                    Country = "United States",
+                    City = "New York",
+                    Street = "123 Main Street",
+                    PostalCode = "10001",
+                    Email = "john.smith@example.com",
+                    PhoneNumber = "555-1234",
+                    AccessLevel = "Admin"
+                },
+                new Employee()
+                {
+                    Name = "Emily",
+                    LastName = "Johnson",
+                    BirthDate = new DateOnly(1990, 6, 15),
+                    Country = "United Kingdom",
+                    City = "London",
+                    Street = "456 Park Lane",
+                    PostalCode = "SW1A 2AB",
+                    Email = "emily.johnson@example.com",
+                    PhoneNumber = "555-5678",
+                    AccessLevel = "Standard"
+                },
+                new Employee()
+                {
+                    Name = "Daniel",
+                    LastName = "Brown",
+                    BirthDate = new DateOnly(1988, 4, 22),
+                    Country = "Canada",
+                    City = "Toronto",
+                    Street = "789 Elm Street",
+                    PostalCode = "M4W 1N4",
+                    Email = "daniel.brown@example.com",
+                    PhoneNumber = "555-9012",
+                    AccessLevel = "Standard"
+                },
+                new Employee()
+                {
+                    Name = "Sophia",
+                    LastName = "Wilson",
+                    BirthDate = new DateOnly(1993, 9, 7),
+                    Country = "Australia",
+                    City = "Sydney",
+                    Street = "987 Queen Street",
+                    PostalCode = "2000",
+                    Email = "sophia.wilson@example.com",
+                    PhoneNumber = "555-3456",
+                    AccessLevel = "Standard"
+                }
+            };
 
             using (var session = DocumentStoreHolder.Store.OpenSession())
             {
@@ -104,8 +240,18 @@ namespace Persistence
                     session.Store(book);
                 }
 
+                foreach (var client in clients)
+                {
+                    session.Store(client);
+                }
+
+                foreach (var employee in employees)
+                {
+                    session.Store(employee);
+                }
+
                 session.SaveChanges();
-                Console.WriteLine("Seed succesful");
+                Console.WriteLine("Seed successful");
             }
         }
     }

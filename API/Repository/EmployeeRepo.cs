@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static API.Common.Books_CategoryBookCount;
 using static API.Common.MultiMapIndexes;
 
 namespace API.Repository
@@ -112,6 +113,15 @@ namespace API.Repository
             }
             Session.Delete(employee);
             Session.SaveChanges();
+        }
+
+        public List<Employees_AccessLevelCount.Result> GetEmployeesAccessCount()
+        {
+            var results = Session
+                .Query<Employees_AccessLevelCount.Result, Employees_AccessLevelCount>()
+                .Include(e => e.AccessLevel)
+                .ToList();
+            return results;
         }
 
         public List<People_Search.Result> SearchPeople(string searchTerms)

@@ -12,6 +12,7 @@ namespace API.Common
                 Map = books => from book in books
                                select new
                                {
+                                   book.Id,
                                    book.Title,
                                };
             }
@@ -31,6 +32,19 @@ namespace API.Common
             }
         }
 
+        public class Book_Search : AbstractIndexCreationTask<Book>
+        {
+            public Book_Search()
+            {
+                Map = books => from book in books
+                               select new
+                               {
+                                   book.Title
+                               };
+                Indexes.Add(b => b.Title, FieldIndexing.Search);
+            }
+        }
+
         public class ClientsIndex : AbstractIndexCreationTask<Client>
         {
             public ClientsIndex()
@@ -38,10 +52,9 @@ namespace API.Common
                 Map = clients => from client in clients
                                  select new
                                  {
+                                     client.Id,
                                      client.Name,
                                      client.LastName,
-                                     client.Email,
-                                     client.Rental
                                  };
             }
         }
@@ -67,9 +80,9 @@ namespace API.Common
             Map = employees => from employee in employees
                                select new
                                {
+                                   employee.Id,
                                    employee.Name,
                                    employee.LastName,
-                                   employee.Email
                                };
         }
     }

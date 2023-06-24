@@ -32,6 +32,7 @@ namespace API.Repository
             IndexCreation.CreateIndexes(typeof(Books_CategoryBookCount).Assembly, Store);
             IndexCreation.CreateIndexes(typeof(Employees_AccessLevelCount).Assembly, Store);
             IndexCreation.CreateIndexes(typeof(People_Search).Assembly, Store);
+            IndexCreation.CreateIndexes(typeof(Book_Search).Assembly, Store);
             Session = Store.OpenSession();
             Session.Advanced.WaitForIndexesAfterSaveChanges(timeout: TimeSpan.FromSeconds(5), throwOnTimeout: false);
         }
