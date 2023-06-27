@@ -88,71 +88,143 @@ namespace RavenProject
                     return true;
 
                 case "4":
+                    Console.Clear();
+                    bookMethods.DisplayCategoryCount();
+                    ReturnToMenu();
                     return true;
 
                 case "5":
+                    Console.Clear();
+                    bookMethods.CreateBook();
+                    ReturnToMenu();
                     return true;
 
                 case "6":
+                    Console.Clear();
+                    Console.WriteLine("Enter book id: ");
+                    bookMethods.UpdateBook(Console.ReadLine());
+                    ReturnToMenu();
                     return true;
 
                 case "7":
+                    Console.Clear();
+                    Console.WriteLine("Enter book id: ");
+                    bookMethods.DeleteBook(Console.ReadLine());
+                    ReturnToMenu();
                     return true;
 
                 case "8":
+                    Console.Clear();
+                    Console.WriteLine("Enter employee id: ");
+                    employeesMethods.DisplayEmployee(Console.ReadLine());
+                    ReturnToMenu();
                     return true;
 
                 case "9":
+                    Console.Clear();
+                    employeesMethods.DisplayEmployeesList();
+                    ReturnToMenu();
                     return true;
 
                 case "10":
+                    Console.Clear();
+                    employeesMethods.DisplayEmployeesListSimple();
+                    ReturnToMenu();
                     return true;
 
                 case "11":
+                    Console.Clear();
+                    employeesMethods.DisplayEmployeesAccessLevel();
+                    ReturnToMenu();
                     return true;
 
                 case "12":
+                    Console.Clear();
+                    employeesMethods.DisplayAccessLevelCount();
+                    ReturnToMenu();
                     return true;
 
                 case "13":
+                    Console.Clear();
+                    employeesMethods.CreateEmployee();
+                    ReturnToMenu();
                     return true;
 
                 case "14":
+                    Console.Clear();
+                    Console.WriteLine("Enter employee id: ");
+                    employeesMethods.UpdateEmployee(Console.ReadLine());
+                    ReturnToMenu();
                     return true;
 
                 case "15":
+                    Console.Clear();
+                    Console.WriteLine("Enter employee id: ");
+                    employeesMethods.DeleteEmployee(Console.ReadLine());
+                    ReturnToMenu();
                     return true;
 
                 case "16":
+                    Console.Clear();
+                    Console.WriteLine("Enter client id: ");
+                    clientMethods.DisplayClient(Console.ReadLine());
+                    ReturnToMenu();
                     return true;
 
                 case "17":
+                    Console.Clear();
+                    clientMethods.DisplayClientsList();
+                    ReturnToMenu();
                     return true;
 
                 case "18":
+                    Console.Clear();
+                    clientMethods.DisplayClientsListSimple();
+                    ReturnToMenu();
                     return true;
 
                 case "19":
+                    Console.Clear();
+                    clientMethods.CreateClient();
+                    ReturnToMenu();
                     return true;
 
                 case "20":
+                    Console.Clear();
+                    Console.WriteLine("Enter client id: ");
+                    clientMethods.UpdateClient(Console.ReadLine());
+                    ReturnToMenu();
                     return true;
 
                 case "21":
+                    Console.Clear();
+                    Console.WriteLine("Enter client id: ");
+                    clientMethods.DeleteClient(Console.ReadLine());
+                    ReturnToMenu();
                     return true;
 
                 case "22":
+                    Console.Clear();
+                    Console.WriteLine("Enter client id: ");
+                    clientMethods.DisplayRentalList(Console.ReadLine());
+                    ReturnToMenu();
                     return true;
 
                 case "23":
+                    Console.Clear();
+                    Console.WriteLine("Enter client id: ");
+                    clientMethods.RentBook(Console.ReadLine());
+                    ReturnToMenu();
                     return true;
 
                 case "24":
+                    Console.Clear();
+                    clientMethods.ReturnBook();
+                    ReturnToMenu();
                     return true;
 
                 case "25":
                     Console.WriteLine("Exiting...");
-                    Thread.Sleep(1000);
                     return false;
             }
             return false;
